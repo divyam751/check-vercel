@@ -13,6 +13,7 @@ const { bookingRouter } = require("../routes/booking.route");
 const { flightRouter } = require("../routes/flight.route");
 
 const helmet = require("helmet");
+const { sampleRouter } = require("../routes/sample.route");
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use("/api/v1/flights", flightRouter);
 app.use("/api/v1/booking", bookingRouter);
 app.use("/api/v1/messages", messageRouter);
 app.use("/api/v1/payments", paymentRouter);
+app.use("/api/v1/sample", sampleRouter);
 
 app.listen(PORT, async () => {
   try {
