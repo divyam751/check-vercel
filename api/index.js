@@ -14,6 +14,7 @@ const { flightRouter } = require("../routes/flight.route");
 
 const helmet = require("helmet");
 const { sampleRouter } = require("../routes/sample.route");
+const { Message } = require("../models/message.model");
 
 const app = express();
 
@@ -35,6 +36,17 @@ app.use(redisMiddleware);
 
 app.get("/", (req, res) => {
   return res.json({ message: "Welcome to the world of backend!" });
+});
+app.get("/messages", async (req, res) => {
+  try {
+    const messages = await Message.find();
+    // ApiResponse.success(res, messages, 200, "Messages fetched successfully");
+    return res.status(200).json({ messages });
+  } catch (err) {
+    return res.status(500).json({ message: "DB takes time" });
+    // console.error("Error in getAllMessages:", err);
+    // ApiResponse.error(res, [err.message], 500, "Failed to fetch messages");
+  }
 });
 
 app.use("/api/v1/users", userRouter);
